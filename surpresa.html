@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Dia dos Namorados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #333;
+      text-align: center;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #b30059;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease-out;
+    }
+    .typed-text {
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.7);
+      padding: 20px;
+      border-radius: 20px;
+      min-height: 100px;
+      animation: fadeIn 2s ease;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .slideshow {
+      margin: 40px auto 10px;
+      max-width: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .slideshow img {
+      width: 100%;
+      height: auto;
+      display: none;
+      transition: opacity 1s ease;
+    }
+    .slideshow img.active {
+      display: block;
+    }
+
+    .music-control {
+      margin: 30px auto;
+    }
+    .music-control button {
+      background: #ff69b4;
+      border: none;
+      color: white;
+      padding: 15px;
+      font-size: 1.2em;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .music-control button:hover {
+      background: #d94e94;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-weight: bold;
+      color: #802e4f;
+    }
+
+    /* corações */
+    .heart {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      background: #ff69b4;
+      top: -20px;
+      left: 50%;
+      transform: rotate(45deg);
+      animation: fall 6s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff69b4;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: -7.5px;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .typed-text {
+        font-size: 1.1em;
+        padding: 15px;
+      }
+      .music-control button {
+        font-size: 1em;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz Dia dos Namorados 💖</h1>
+
+  <div class="typed-text" id="typedText"></div>
+
+  <!-- Slideshow de fotos -->
+  <div class="slideshow">
+    <img src="img/foto1.jpg" class="active" alt="Foto 1">
+    <img src="img/foto2.jpg" alt="Foto 2">
+    <img src="img/foto3.jpg" alt="Foto 3">
+    <img src="img/foto4.jpg" alt="Foto 4">
+  </div>
+
+  <!-- Controle de música -->
+  <div class="music-control">
+    <button onclick="toggleMusic()">💗</button>
+  </div>
+
+  <footer>Juliany & Julie ❤️</footer>
+
+  <!-- Áudio escondido -->
+  <audio id="music" autoplay loop>
+    <source src="sua-musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Corações -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 300);
+
+    // Digitação
+    const text = `Você foi e está sendo, a cada dia que passa, a certeza que eu fiz a melhor escolha de estar ao seu lado. Eu te amo muuuuuito! 💕 Feliz Dia dos Namorados!`;
+    const typedElement = document.getElementById('typedText');
+    let i = 0;
+    function typeText() {
+      if (i < text.length) {
+        typedElement.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeText, 45);
+      }
+    }
+    setTimeout(typeText, 500);
+
+    // Slideshow
+    const images = document.querySelectorAll('.slideshow img');
+    let current = 0;
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 3000);
+
+    // Música
+    const music = document.getElementById('music');
+    let playing = true;
+    function toggleMusic() {
+      playing ? music.pause() : music.play();
+      playing = !playing;
+    }
+  </script>
+</body>
+</html>
